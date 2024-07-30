@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req });
+  const token = await getToken({ req, secret: process.env.JWT_SECRET });
   const isAuthenticated = !!token;
   const isAdmin = token?.role === "admin";
   const isPLCC = req.nextUrl.pathname.startsWith("/command-center/pengajuan-layanan");
@@ -22,5 +22,8 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/command-center/pengajuan-layanan/:path*", "/dashboard-admin/:path*"], // Paths to apply middleware
+  matcher: [
+    "/command-center/pengajuan-layanan/:path*",
+    "/dashboard-admin/:path*"
+  ], // Paths to apply middleware
 };
