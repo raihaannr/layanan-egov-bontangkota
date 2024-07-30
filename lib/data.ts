@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
 export const getPemesanan = async () => {
   try {
@@ -80,6 +81,7 @@ export const getUserCount = async () => {
   } catch (error) {
     throw new Error("Failed to fetch user count");
   }
+  revalidatePath("/dashboard-admin");
 };
 
 // Fetch Diajukan pemesanan count
