@@ -133,7 +133,6 @@ export const getAllUsers = async (): Promise<{ users: User[]; message?: string }
 };
 
 export const getAllPemesanan = async (): Promise<{ pemesanan: Pemesanan[]; message?: string }> => {
-  await checkAdminRole();
 
   try {
     const pemesanan = await prisma.pemesanan.findMany({
