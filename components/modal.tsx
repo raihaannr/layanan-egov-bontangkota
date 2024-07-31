@@ -40,7 +40,7 @@ const Modal: FC<ModalProps> = ({ isVisible, onClose }) => {
                   className="select select-bordered w-full border p-2 rounded-md xl:w-full xl:border xl:p-2 xl:rounded-md"
                 >
                   <option value="" disabled>
-                    Select a Brand
+                    Select a room
                   </option>
                   <option value="cc1">
                     CC1-Ruang Rapat

@@ -1,5 +1,5 @@
-'use client'
-import { useState } from 'react';
+'use client';
+import React, { useState } from 'react';
 import KontenTabel from '@/components/konten-tabel';
 import Sidebar from './sidebar';
 import { IoCalendar } from 'react-icons/io5';
