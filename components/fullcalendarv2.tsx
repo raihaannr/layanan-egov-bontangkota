@@ -44,8 +44,8 @@ const FullCalendarComponent: React.FC = () => {
       const { pemesanan } = await getAllPemesanan();
       const enhancedEvents = pemesanan.map((event: any) => ({
         title: `${event.keperluan} - ${event.ruangan}`,
-        start: event.pinjam,
-        end: event.selesai,
+        start: new Date(event.pinjam).toISOString(),
+        end: new Date(event.selesai).toISOString(),
         status: event.status,
         pemohon: event.pemohon,
         instansi: event.instansi,
