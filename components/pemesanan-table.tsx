@@ -3,8 +3,8 @@ import { getUserPemesanan } from '@/lib/actions';
 import React, { useEffect, useState } from 'react';
 import { IoDocumentTextOutline, IoChevronBack } from 'react-icons/io5';
 import Link from 'next/link';
-import formatDateToID from '@/lib/format-date';
 import { CancelButton } from './button';
+import formatTanggal from '@/lib/format-tanggal';
 
 interface Pemesanan {
   id: string;
@@ -91,9 +91,9 @@ const PemesananCard: React.FC = () => {
                 </div>
                 <div className="">
                   <h2 className="text-xs font-medium text-gray-500 mt-2 xl:text-xs xl:font-medium xl:text-gray-500 xl:mt-2">Waktu Peminjaman</h2>
-                  <p>{formatDateToID(data.pinjam)}</p>
+                  <p>{formatTanggal(data.pinjam)}</p>
                   <h2 className="text-xs font-medium text-gray-500 mt-2 xl:text-xs xl:font-medium xl:text-gray-500 xl:mt-2">Waktu Selesai</h2>
-                  <p>{formatDateToID(data.selesai)}</p>
+                  <p>{formatTanggal(data.selesai)}</p>
                   <h2 className="text-xs font-medium text-gray-500 mt-2 xl:text-xs xl:font-medium xl:text-gray-500 xl:mt-2">Surat Permohonan</h2>
                   <p className="w-fi xl:w-fit">
                     <Link href={data.surat} className="text-sky-700 hover:text-sky-950 w-fit xl:text-sky-700 xl:hover:text-sky-950 xl:w-fit">
