@@ -15,7 +15,7 @@ const DashboardAdminCC = () => {
         <TabelCC1 />
       </main>
 
-      <footer className="xl:block hidden">
+      <footer className="xl:mt-5 xl:block hidden">
         <div>
             <Footer />
         </div>
