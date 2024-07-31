@@ -16,11 +16,6 @@ interface CustomEvent {
   status: 'Diajukan' | 'Disetujui' | 'Ditolak' | 'Dibatalkan';
   backgroundColor?: string;
   borderColor?: string;
-  pemohon?: string;
-  instansi?: string;
-  keperluan?: string;
-  ruangan?: string;
-  surat?: string;
 }
 
 const FullCalendarComponent: React.FC = () => {
@@ -37,7 +32,7 @@ const FullCalendarComponent: React.FC = () => {
       default:
         return '#378006'; // Default color
     }
-  };
+  };  
 
   const [events, setEvents] = useState<CustomEvent[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,32 +40,23 @@ const FullCalendarComponent: React.FC = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      try {
-        const response = await fetch('/api/events');
-        const data = await response.json();
-        const enhancedEvents = data.map((event: any) => {
-          const start = new Date(event.pinjam).toISOString();
-          const end = new Date(event.selesai).toISOString();
-          
-          return {
-            title: `${event.keperluan} - ${event.ruangan}`,
-            start,
-            end,
-            status: event.status,
-            pemohon: event.pemohon,
-            instansi: event.instansi,
-            keperluan: event.keperluan,
-            ruangan: event.ruangan,
-            surat: event.surat,
-            backgroundColor: getStatusColor(event.status),
-            borderColor: getStatusColor(event.status),
-          };
-        });
-        setEvents(enhancedEvents);
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
-    };
+      const response = await fetch('/api/events');
+      const data = await response.json();
+      const enhancedEvents = data.map((event: any) => ({
+        title: `${event.keperluan} - ${event.ruangan}`,
+        start: new Date(event.pinjam).toISOString(),
+        end: new Date(event.pinjam).toISOString(),
+        status: event.status,
+        pemohon: event.pemohon,
+        instansi: event.instansi,
+        keperluan: event.keperluan,
+        ruangan: event.ruangan,
+        surat: event.surat,
+        backgroundColor: getStatusColor(event.status),
+        borderColor: getStatusColor(event.status),
+      }));
+      setEvents(enhancedEvents);
+    };    
 
     fetchEvents();
   }, []);
