@@ -8,7 +8,6 @@ import localeId from '@fullcalendar/core/locales/id';
 import { useState, useEffect } from 'react';
 import listPlugin from '@fullcalendar/list';
 import ModalDesk from './modal-desk';
-import { getAllPemesanan } from '@/lib/actions';
 
 interface CustomEvent {
   title: string;
@@ -17,6 +16,11 @@ interface CustomEvent {
   status: 'Diajukan' | 'Disetujui' | 'Ditolak' | 'Dibatalkan';
   backgroundColor?: string;
   borderColor?: string;
+  pemohon?: string;
+  instansi?: string;
+  keperluan?: string;
+  ruangan?: string;
+  surat?: string;
 }
 
 const FullCalendarComponent: React.FC = () => {
@@ -41,21 +45,31 @@ const FullCalendarComponent: React.FC = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const { pemesanan } = await getAllPemesanan();
-      const enhancedEvents = pemesanan.map((event: any) => ({
-        title: `${event.keperluan} - ${event.ruangan}`,
-        start: event.pinjam,
-        end: event.selesai,
-        status: event.status,
-        pemohon: event.pemohon,
-        instansi: event.instansi,
-        keperluan: event.keperluan,
-        ruangan: event.ruangan,
-        surat: event.surat,
-        backgroundColor: getStatusColor(event.status),
-        borderColor: getStatusColor(event.status),
-      }));
-      setEvents(enhancedEvents);
+      try {
+        const response = await fetch('/api/events');
+        const data = await response.json();
+        const enhancedEvents = data.map((event: any) => {
+          const start = new Date(event.pinjam).toISOString();
+          const end = new Date(event.selesai).toISOString();
+          
+          return {
+            title: `${event.keperluan} - ${event.ruangan}`,
+            start,
+            end,
+            status: event.status,
+            pemohon: event.pemohon,
+            instansi: event.instansi,
+            keperluan: event.keperluan,
+            ruangan: event.ruangan,
+            surat: event.surat,
+            backgroundColor: getStatusColor(event.status),
+            borderColor: getStatusColor(event.status),
+          };
+        });
+        setEvents(enhancedEvents);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
     };
 
     fetchEvents();
