@@ -78,7 +78,7 @@ const FullCalendarComponent: React.FC = () => {
         initialView={"listMonth"}
         headerToolbar={{
           start: "title",
-          end: "prev,next",
+          end: "prev,nex",
         }}
         events={events}
         height="auto"
@@ -94,4 +94,3 @@ const FullCalendarComponent: React.FC = () => {
 };
 
 export default FullCalendarComponent;
-
