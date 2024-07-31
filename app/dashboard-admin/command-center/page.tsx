@@ -11,11 +11,11 @@ const DashboardAdminCC = () => {
         </div>
       </header>
 
-      <main>
+      <main className="xl:mb-5">
         <TabelCC1 />
       </main>
 
-      <footer className="xl:mt-5 xl:block hidden">
+      <footer className="xl:block hidden">
         <div>
             <Footer />
         </div>
