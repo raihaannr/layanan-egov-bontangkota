@@ -74,7 +74,7 @@ const KontenTabel: React.FC<KontenTabelProps> = ({
                       <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">{pemesanan.ruangan}</td>
                       <td className="px-4 py-2 text-gray-900">{pemesanan.keperluan}</td>
                       <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">
-                        {new Date(pemesanan.pinjam).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
+                        {new Date(pemesanan.pinjam).toString()}
                       </td>
                       <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">
                         {new Date(pemesanan.selesai).toLocaleString()}
