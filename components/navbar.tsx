@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <nav className='max-w-full backdrop-blur-md bg-gray-400/45'>
       <div className="flex max-w-screen-xl mx-auto">
-        <div className='flex-1 content-center mx-4'>
+        <div className='flex-1 content-center px-4 py-1.5'>
           <Image
             src="/diskominfobtg.png"
             width={125}
