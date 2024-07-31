@@ -8,7 +8,6 @@ import localeId from '@fullcalendar/core/locales/id';
 import { useState, useEffect } from 'react';
 import listPlugin from '@fullcalendar/list';
 import ModalDesk from './modal-desk';
-import { getAllPemesanan } from '@/lib/actions';
 
 interface CustomEvent {
   title: string;
@@ -33,7 +32,7 @@ const FullCalendarComponent: React.FC = () => {
       default:
         return '#378006'; // Default color
     }
-  };
+  };  
 
   const [events, setEvents] = useState<CustomEvent[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,8 +40,9 @@ const FullCalendarComponent: React.FC = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const { pemesanan } = await getAllPemesanan();
-      const enhancedEvents = pemesanan.map((event: any) => ({
+      const response = await fetch('/api/events');
+      const data = await response.json();
+      const enhancedEvents = data.map((event: any) => ({
         title: `${event.keperluan} - ${event.ruangan}`,
         start: event.pinjam,
         end: event.selesai,
@@ -56,7 +56,7 @@ const FullCalendarComponent: React.FC = () => {
         borderColor: getStatusColor(event.status),
       }));
       setEvents(enhancedEvents);
-    };
+    };    
 
     fetchEvents();
   }, []);
@@ -78,7 +78,7 @@ const FullCalendarComponent: React.FC = () => {
         initialView={"listMonth"}
         headerToolbar={{
           start: "title",
-          end: "prev,nex",
+          end: "prev,next",
         }}
         events={events}
         height="auto"
