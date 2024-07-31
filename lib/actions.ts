@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getPemesananById, getUsersById } from "./data";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
+import { User } from "@prisma/client";
 
 const UploadSchema = z.object({
     pemohon: z.string().min(1, { message: "Must be 1 or more characters long" }),
@@ -117,6 +118,20 @@ async function checkAdminRole() {
     throw new Error("Unauthorized: Admin role required");
   }
 }
+
+export const getAllUsers = async (): Promise<{ users: User[]; message?: string }> => {
+  await checkAdminRole();
+
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    return { users };
+  } catch (error) {
+    return { users: [], message: "Failed to retrieve users" };
+  }
+};
+
 
 export const updateStatusToDiterima = async (id: string) => {
   await checkAdminRole();

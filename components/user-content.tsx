@@ -11,12 +11,12 @@ interface User {
   role: string;
 }
 
-interface TabelCC1ClientProps {
+interface UserContentProps {
   users: User[];
 }
 
-const UserContent: React.FC<TabelCC1ClientProps> = ({ users }) => {
-  const itemsPerPage = 10; // Number of items per page
+const UserContent: React.FC<UserContentProps> = ({ users }) => {
+  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -40,9 +40,7 @@ const UserContent: React.FC<TabelCC1ClientProps> = ({ users }) => {
 
   return (
     <div className="p-4">
-      <h1 className="font-bold text-lg pl-2 border-l-4 border-l-orange-400">
-        Users
-      </h1>
+      <h1 className="font-bold text-lg pl-2 border-l-4 border-l-orange-400">Users</h1>
       <input
         type="text"
         placeholder="Cari data..."
@@ -69,34 +67,32 @@ const UserContent: React.FC<TabelCC1ClientProps> = ({ users }) => {
                 <td className="xl:block hidden px-4 py-2 text-gray-900">{user.email}</td>
                 <td className="px-4 py-2 text-gray-900">{user.role}</td>
                 <td className="px-4 py-2">
-                        <button>
-                          <ActionButtonUser id={user.id} />
-                        </button>
-                      </td>
+                  <ActionButtonUser id={user.id} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <div className="flex justify-between items-center mt-4 px-4 py-2">
-          <button
-            className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 text-gray-600' : 'bg-blue-500 text-white hover:bg-blue-700'}`}
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <div className="text-gray-700">
-            Page {currentPage} of {totalPages}
-          </div>
-          <button
-            className={`px-4 py-2 rounded ${currentPage === totalPages ? 'bg-gray-300 text-gray-600' : 'bg-blue-500 text-white hover:bg-blue-700'}`}
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
+        <button
+          className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 text-gray-600' : 'bg-blue-500 text-white hover:bg-blue-700'}`}
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <div className="text-gray-700">
+          Page {currentPage} of {totalPages}
         </div>
+        <button
+          className={`px-4 py-2 rounded ${currentPage === totalPages ? 'bg-gray-300 text-gray-600' : 'bg-blue-500 text-white hover:bg-blue-700'}`}
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
