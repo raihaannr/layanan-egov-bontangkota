@@ -32,7 +32,12 @@ const FullCalendarComponent: React.FC = () => {
       default:
         return '#378006'; // Default color
     }
-  };  
+  };
+
+  const convertToLocaleString = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleString();
+  };
 
   const [events, setEvents] = useState<CustomEvent[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,8 +49,8 @@ const FullCalendarComponent: React.FC = () => {
       const data = await response.json();
       const enhancedEvents = data.map((event: any) => ({
         title: `${event.keperluan} - ${event.ruangan}`,
-        start: new Date(event.pinjam).toISOString(),
-        end: new Date(event.pinjam).toISOString(),
+        start: convertToLocaleString(event.pinjam),
+        end: convertToLocaleString(event.selesai),
         status: event.status,
         pemohon: event.pemohon,
         instansi: event.instansi,
@@ -56,7 +61,7 @@ const FullCalendarComponent: React.FC = () => {
         borderColor: getStatusColor(event.status),
       }));
       setEvents(enhancedEvents);
-    };    
+    };
 
     fetchEvents();
   }, []);
