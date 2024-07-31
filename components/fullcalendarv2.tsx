@@ -75,10 +75,11 @@ const FullCalendarComponent: React.FC = () => {
     <>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        initialView={"listMonth"}
+        initialView={"dayGridMonth"}
         headerToolbar={{
-          start: "title",
-          end: "prev,nex",
+          start: "today prev,next",
+          center: "title",
+          end: "dayGridMonth,listMonth",
         }}
         events={events}
         height="auto"
