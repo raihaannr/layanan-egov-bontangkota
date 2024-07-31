@@ -132,17 +132,21 @@ export const getAllUsers = async (): Promise<{ users: User[]; message?: string }
   }
 };
 
-export const getAllPemesanan = async (): Promise<{ result: Pemesanan[]; message?: string }> => {
+export const getAllPemesanan = async (): Promise<{ pemesanan: Pemesanan[]; message?: string }> => {
+  await checkAdminRole();
+
   try {
-    const result = await prisma.pemesanan.findMany({
+    const pemesanan = await prisma.pemesanan.findMany({
       orderBy: { createdAt: 'desc' },
+      include: {
+        user: true, // Include the related user data if needed
+      },
     });
-    return { result };
+    return { pemesanan };
   } catch (error) {
-    return { result: [], message: "Failed to retrieve pemesanan" };
+    return { pemesanan: [], message: "Failed to retrieve pemesanan" };
   }
 };
-
 
 export const updateStatusToDiterima = async (id: string) => {
   await checkAdminRole();

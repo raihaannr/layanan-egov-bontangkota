@@ -1,14 +1,19 @@
-import { getAllPemesanan } from "@/lib/actions";
-import TabelCC1Client from "@/components/tabel-cc-client";
+import React from 'react';
+import TabelCC1Client from '@/components/tabel-cc-client';
+import { getAllPemesanan } from '@/lib/actions';
 
 const TabelCC1 = async () => {
-  const { result, message } = await getAllPemesanan();
+  const { pemesanan, message } = await getAllPemesanan();
 
   if (message) {
-    return <div className="h-screen flex items-center justify-center"><p className="text-red-500">{message}</p></div>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-red-500">{message}</p>
+      </div>
+    );
   }
 
-  return <TabelCC1Client pemesanan={result} />;
+  return <TabelCC1Client pemesanan={pemesanan} />;
 };
 
 export default TabelCC1;
