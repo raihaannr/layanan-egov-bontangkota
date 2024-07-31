@@ -51,7 +51,7 @@ const TabelCC1Client: React.FC<TabelCC1ClientProps> = ({ pemesanan }) => {
   const closeModal = () => setIsModalVisible(false);
 
   return (
-    <div className="relative xl:flex xl:h-screen">
+    <div className="relative xl:flex xl:min-h-screen">
       <div className="fixed bottom-0 w-full xl:static xl:pt-20 xl:w-64 xl:px-4 xl:py-0 xl:m-0 xl:bg-transparent">
         <Sidebar />
       </div>

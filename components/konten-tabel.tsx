@@ -66,22 +66,22 @@ const KontenTabel: React.FC<KontenTabelProps> = ({
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentItems.map((pemesanan: Pemesanan, index: number) => (
-                    <tr key={pemesanan.id} className="hover:bg-gray-50 line-clamp-1">
+                    <tr key={pemesanan.id} className="hover:bg-gray-50">
                       <td className="px-4 py-2 text-gray-900">
                         {startIndex + index + 1}
                       </td>
-                      <td className="px-4 py-2 text-gray-900">{pemesanan.pemohon}</td>
-                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">{pemesanan.instansi}</td>
-                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">{pemesanan.ruangan}</td>
-                      <td className="px-4 py-2 text-gray-900">{pemesanan.keperluan}</td>
-                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">
+                      <td className="px-4 py-2 text-gray-900 line-clamp-1">{pemesanan.pemohon}</td>
+                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden line-clamp-1">{pemesanan.instansi}</td>
+                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden line-clamp-1">{pemesanan.ruangan}</td>
+                      <td className="px-4 py-2 text-gray-900 line-clamp-1">{pemesanan.keperluan}</td>
+                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden line-clamp-1">
                         {formatTanggal(pemesanan.pinjam)}
                       </td>
-                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">
+                      <td className="px-4 py-2 text-gray-900 xl:table-cell hidden line-clamp-1">
                         {formatTanggal(pemesanan.pinjam)}
                       </td>
-                      <td className="px-4 py-2 text-gray-900">{pemesanan.status}</td>
-                      <td className="px-4 py-2">
+                      <td className="px-4 py-2 text-gray-900 line-clamp-1">{pemesanan.status}</td>
+                      <td className="px-4 py-2 line-clamp-1">
                         <button>
                           <ActionButton id={pemesanan.id} />
                         </button>
