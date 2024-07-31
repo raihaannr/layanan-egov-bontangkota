@@ -1,5 +1,6 @@
 import React from "react";
 import { ActionButton } from "./button";
+import formatTanggal from "@/lib/format-tanggal";
 
 interface Pemesanan {
   id: string;
@@ -74,10 +75,10 @@ const KontenTabel: React.FC<KontenTabelProps> = ({
                       <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">{pemesanan.ruangan}</td>
                       <td className="px-4 py-2 text-gray-900">{pemesanan.keperluan}</td>
                       <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">
-                        {new Date(pemesanan.pinjam).toISOString()}
+                        {formatTanggal(pemesanan.pinjam)}
                       </td>
                       <td className="px-4 py-2 text-gray-900 xl:table-cell hidden">
-                        {new Date(pemesanan.selesai).toLocaleString()}
+                        {formatTanggal(pemesanan.pinjam)}
                       </td>
                       <td className="px-4 py-2 text-gray-900">{pemesanan.status}</td>
                       <td className="px-4 py-2">
