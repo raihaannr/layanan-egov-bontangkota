@@ -34,11 +34,6 @@ const FullCalendarComponent: React.FC = () => {
     }
   };
 
-  const convertToLocaleString = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleString();
-  };
-
   const [events, setEvents] = useState<CustomEvent[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CustomEvent | null>(null);
@@ -49,8 +44,8 @@ const FullCalendarComponent: React.FC = () => {
       const data = await response.json();
       const enhancedEvents = data.map((event: any) => ({
         title: `${event.keperluan} - ${event.ruangan}`,
-        start: convertToLocaleString(event.pinjam),
-        end: convertToLocaleString(event.selesai),
+        start: new Date(event.pinjam).toISOString(), // Ensure UTC format
+        end: new Date(event.selesai).toISOString(), // Ensure UTC format
         status: event.status,
         pemohon: event.pemohon,
         instansi: event.instansi,
