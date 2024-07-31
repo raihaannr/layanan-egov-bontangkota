@@ -10,23 +10,30 @@ import { authOptions } from "./auth";
 import { Pemesanan, User } from "@prisma/client";
 
 const UploadSchema = z.object({
-    pemohon: z.string().min(1, { message: "Must be 1 or more characters long" }),
-    instansi: z.string().min(1, { message: "Must be 1 or more characters long" }),
-    ruangan: z.string().min(1, { message: "Must be 1 or more characters long" }),
-    keperluan: z.string().min(5, { message: "Must be 5 or more characters long" }),
-    pinjam: z.string().min(5, { message: "tidak boleh kosong" }),
-    selesai: z.string().min(5, { message: "tidak boleh kosong" }),
-    surat: z
-      .instanceof(File) // Ensure file is a File object
-      .refine((file) => file.size > 0, { message: "File tidak boleh kosong. " }) // Validate file size
-      .refine(
-        (file) => file.size === 0 || ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"].includes(file.type),
-        { message: "Hanya file PDF dan Doc yang diizinkan" }
-      ) // Validate file type
-      .refine((file) => file.size < 4000000, {
-        message: "image must less than 4MB"
-      }),
-    status: z.string().min(1, { message: "Must be 1 or more characters long" })
+  pemohon: z.string().min(1, { message: "Must be 1 or more characters long" }),
+  instansi: z.string().min(1, { message: "Must be 1 or more characters long" }),
+  ruangan: z.string().min(1, { message: "Must be 1 or more characters long" }),
+  keperluan: z.string().min(5, { message: "Must be 5 or more characters long" }),
+  pinjam: z.string().min(5, { message: "tidak boleh kosong" }),
+  selesai: z.string().min(5, { message: "tidak boleh kosong" }),
+  surat: z
+    .instanceof(File) // Ensure file is a File object
+    .refine((file) => file.size > 0, { message: "File tidak boleh kosong. " }) // Validate file size
+    .refine(
+      (file) => file.size === 0 || ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"].includes(file.type),
+      { message: "Hanya file PDF dan Doc yang diizinkan" }
+    ) // Validate file type
+    .refine((file) => file.size < 4000000, {
+      message: "image must less than 4MB"
+    }),
+  status: z.string().min(1, { message: "Must be 1 or more characters long" })
+}).refine((data) => {
+  const pinjamDate = new Date(data.pinjam);
+  const selesaiDate = new Date(data.selesai);
+  return pinjamDate <= selesaiDate;
+}, {
+  message: "Waktu selesai tidak boleh lebih awal dari waktu pinjam",
+  path: ["selesai"], // Path to indicate which field is wrong
 });
 
 export const uploadPermohonan = async (prevState: unknown, formData: FormData) => {
@@ -118,6 +125,14 @@ async function checkAdminRole() {
     throw new Error("Unauthorized: Admin role required");
   }
 }
+
+export const checkAdminUserRole = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session || session.user.role !== "admin") {
+    return false;
+  }
+  return true;
+};
 
 export const getAllUsers = async (): Promise<{ users: User[]; message?: string }> => {
   await checkAdminRole();
@@ -212,7 +227,20 @@ export const updateStatusToDitolak = async (id: string) => {
 };
 
 export const updateStatusToDibatalkan = async (id: string) => {
-  await checkAdminRole();
+  const isAdmin = await checkAdminUserRole();
+  if (!isAdmin) {
+    try {
+      await prisma.pemesanan.update({
+        where: { id },
+        data: { status: "Dibatalkan" },
+      });
+    } catch (error) {
+      return { message: "Failed to update status" };
+    }
+    revalidatePath("/command-center/pengajuan-layanan");
+    redirect("/command-center/pengajuan-layanan");
+    return;
+  }
 
   const data = await getPemesananById(id);
   if (!data) return { message: "No data found" };

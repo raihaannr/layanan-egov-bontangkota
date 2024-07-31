@@ -35,12 +35,11 @@ const Modal: FC<ModalProps> = ({ isVisible, onClose }) => {
               </div>
               <div className="mb-4 xl:mb-4">
                 <label className="text-gray-700 font-medium text-sm xl:text-gray-700 xl:font-medium xl:text-sm">Ruangan</label>
-                {/* <input type="text" name="ruangan" className="w-full border p-2 rounded-md xl:w-full xl:border xl:p-2 xl:rounded-md" /> */}
                   <select name="ruangan"
                   className="select select-bordered w-full border p-2 rounded-md xl:w-full xl:border xl:p-2 xl:rounded-md"
                 >
                   <option value="" disabled>
-                    Select a room
+                    pilih ruangan
                   </option>
                   <option value="cc1">
                     CC1-Ruang Rapat
@@ -97,9 +96,6 @@ const Modal: FC<ModalProps> = ({ isVisible, onClose }) => {
             <button type="button" className="bg-gray-400 text-white px-4 py-2 rounded-md mr-2 xl:bg-gray-400 xl:text-white xl:px-4 xl:py-2 xl:rounded-md xl:mr-2" onClick={onClose}>
               Batal
             </button>
-            {/* <button type="submit" className="bg-sky-950 text-white px-4 py-2 rounded-md xl:bg-sky-950 xl:text-white xl:px-4 xl:py-2 xl:rounded-md">
-              Simpan
-            </button> */}
             <SubmitButton label="buat" />
           </div>
         </form>

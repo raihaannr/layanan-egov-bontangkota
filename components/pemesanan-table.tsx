@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { IoDocumentTextOutline, IoChevronBack } from 'react-icons/io5';
 import Link from 'next/link';
 import formatDateToID from '@/lib/format-date';
+import { CancelButton } from './button';
 
 interface Pemesanan {
   id: string;
@@ -102,9 +103,12 @@ const PemesananCard: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="py-2 xl:py-0">  
+            <div className="py-2 xl:py-0 xl:flex xl:flex-col xl:justify-between mt-4 xl:mt-0">  
               <p className="font-semibold text-gray-400 text-center p-2 xl:font-semibold xl:text-gray-400 xl:text-center xl:p-5">Status</p>
-              <p className="text-3xl font-bold text-center p-2 xl:text-gray-600xl:text-3xl xl:font-bold xl:text-center xl:p-5 xl:text-gray-600">{data.status}</p>
+              <p className="text-3xl font-bold text-center p-2 xl:flex-1 xl:text-gray-600xl:text-3xl xl:font-bold xl:text-center xl:p-5 xl:text-gray-600">{data.status}</p>
+              <div className="xl:flex-1 xl:px-2 mt-4 xl:mt-0">
+                  <CancelButton id={data.id} />
+                </div>
             </div>
           </div>
         </div>
