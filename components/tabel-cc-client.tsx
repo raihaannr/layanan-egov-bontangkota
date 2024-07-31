@@ -55,7 +55,7 @@ const TabelCC1Client: React.FC<TabelCC1ClientProps> = ({ pemesanan }) => {
       <div className="fixed bottom-0 w-full xl:static xl:pt-20 xl:w-64 xl:px-4 xl:py-0 xl:m-0 xl:bg-transparent">
         <Sidebar />
       </div>
-      <div className="xl:flex-1 xl:relative xl:bg-neutral-100 mb-20 xl:mb-0">
+      <div className="xl:flex-1 xl:relative xl:bg-neutral-100 mb-20 xl:mb-5">
         <button onClick={openModal} className='absolute top-14 right-5 xl:absolute xl:top-36 xl:right-10'>
           <IoCalendar size={25} color='LightSlateGray'/>
         </button>

@@ -11,7 +11,7 @@ const DashboardAdminCC = () => {
         </div>
       </header>
 
-      <main className="xl:pb-5">
+      <main>
         <TabelCC1 />
       </main>
 
