@@ -12,7 +12,7 @@ import { getAllPemesanan } from '@/lib/actions';
 
 interface CustomEvent {
   title: string;
-  start: string;
+  start: string;  // Ensure dates are in ISO string format
   end: string;
   status: 'Diajukan' | 'Disetujui' | 'Ditolak' | 'Dibatalkan';
   backgroundColor?: string;
@@ -44,8 +44,8 @@ const FullCalendarComponent: React.FC = () => {
       const { pemesanan } = await getAllPemesanan();
       const enhancedEvents = pemesanan.map((event: any) => ({
         title: `${event.keperluan} - ${event.ruangan}`,
-        start: new Date(event.pinjam).toISOString(),
-        end: new Date(event.selesai).toISOString(),
+        start: event.pinjam,  // Ensure these are UTC date strings
+        end: event.selesai,   // Ensure these are UTC date strings
         status: event.status,
         pemohon: event.pemohon,
         instansi: event.instansi,
@@ -86,6 +86,7 @@ const FullCalendarComponent: React.FC = () => {
         locale={localeId}
         dayMaxEventRows={3}
         eventClick={handleEventClick}
+        timeZone="UTC"  // Ensure FullCalendar interprets dates as UTC
       />
       {isModalOpen && selectedEvent && (
         <ModalDesk onClose={closeModal} event={selectedEvent} />
