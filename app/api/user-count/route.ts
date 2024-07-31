@@ -1,4 +1,4 @@
-import { getUserCount } from '@/lib/data';
+import { getUserCount } from '@/lib/actions';
 import { NextResponse } from 'next/server';
 
 export async function GET() {

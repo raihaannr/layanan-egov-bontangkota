@@ -148,6 +148,32 @@ export const getAllPemesanan = async (): Promise<{ pemesanan: Pemesanan[]; messa
   }
 };
 
+export const getUserCount = async (): Promise<{ count: number; message?: string }> => {
+  await checkAdminRole();
+
+  try {
+    const count = await prisma.user.count();
+    return { count };
+  } catch (error) {
+    return { count: 0, message: "Failed to retrieve user count" };
+  }
+};
+
+export const getPendingPemesananCount = async (): Promise<{ count: number; message?: string }> => {
+  await checkAdminRole();
+
+  try {
+    const count = await prisma.pemesanan.count({
+      where: {
+        status: 'Diajukan', // Assuming 'Diajukan' means pending
+      },
+    });
+    return { count };
+  } catch (error) {
+    return { count: 0, message: "Failed to retrieve pending pemesanan count" };
+  }
+};
+
 export const updateStatusToDiterima = async (id: string) => {
   await checkAdminRole();
 
