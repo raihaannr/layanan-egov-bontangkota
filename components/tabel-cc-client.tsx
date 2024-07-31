@@ -1,9 +1,10 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import KontenTabel from '@/components/konten-tabel';
 import Sidebar from './sidebar';
 import { IoCalendar } from 'react-icons/io5';
 import ModalCalender from './modal-calender';
+import { getAllPemesanan } from '@/lib/actions';
 
 interface Pemesanan {
   id: string;
@@ -18,14 +19,32 @@ interface Pemesanan {
   createdAt: Date;
 }
 
-interface TabelCC1ClientProps {
-  pemesanan: Pemesanan[];
-}
-
-const TabelCC1Client: React.FC<TabelCC1ClientProps> = ({ pemesanan }) => {
+const TabelCC1Client: React.FC = () => {
   const itemsPerPage = 10; // Jumlah item per halaman
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [pemesanan, setPemesanan] = useState<Pemesanan[]>([]);
+  const [message, setMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { pemesanan, message } = await getAllPemesanan();
+      if (message) {
+        setMessage(message);
+      } else {
+        setPemesanan(pemesanan);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (message) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-red-500">{message}</p>
+      </div>
+    );
+  }
 
   const totalPages = Math.ceil(pemesanan.length / itemsPerPage);
 
@@ -72,6 +91,6 @@ const TabelCC1Client: React.FC<TabelCC1ClientProps> = ({ pemesanan }) => {
       <ModalCalender isVisible={isModalVisible} onClose={closeModal} />
     </div>
   );
-}
+};
 
 export default TabelCC1Client;
