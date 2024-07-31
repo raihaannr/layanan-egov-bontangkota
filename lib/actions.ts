@@ -7,7 +7,7 @@ import { z } from "zod";
 import { getPemesananById, getUsersById } from "./data";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
-import { User } from "@prisma/client";
+import { Pemesanan, User } from "@prisma/client";
 
 const UploadSchema = z.object({
     pemohon: z.string().min(1, { message: "Must be 1 or more characters long" }),
@@ -129,6 +129,17 @@ export const getAllUsers = async (): Promise<{ users: User[]; message?: string }
     return { users };
   } catch (error) {
     return { users: [], message: "Failed to retrieve users" };
+  }
+};
+
+export const getAllPemesanan = async (): Promise<{ result: Pemesanan[]; message?: string }> => {
+  try {
+    const result = await prisma.pemesanan.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    return { result };
+  } catch (error) {
+    return { result: [], message: "Failed to retrieve pemesanan" };
   }
 };
 
