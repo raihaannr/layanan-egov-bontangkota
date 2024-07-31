@@ -1,11 +1,12 @@
-import { getUserCount } from '@/lib/actions';
 import { NextResponse } from 'next/server';
+import { getUserCount } from '@/lib/actions';
 
 export async function GET() {
-  try {
-    const count = await getUserCount();
-    return NextResponse.json({ count });
-  } catch (error) {
-    return NextResponse.error();
+  const { count, message } = await getUserCount();
+
+  if (message) {
+    return NextResponse.json({ message }, { status: 500 });
   }
+
+  return NextResponse.json({ count }, { status: 200 });
 }

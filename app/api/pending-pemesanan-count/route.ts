@@ -1,11 +1,12 @@
-import { getPendingPemesananCount } from '@/lib/actions';
 import { NextResponse } from 'next/server';
+import { getPendingPemesananCount } from '@/lib/actions';
 
 export async function GET() {
-  try {
-    const count = await getPendingPemesananCount();
-    return NextResponse.json({ count });
-  } catch (error) {
-    return NextResponse.error();
+  const { count, message } = await getPendingPemesananCount();
+
+  if (message) {
+    return NextResponse.json({ message }, { status: 500 });
   }
+
+  return NextResponse.json({ count }, { status: 200 });
 }
