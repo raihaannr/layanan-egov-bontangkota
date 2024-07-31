@@ -25,6 +25,7 @@ const TabelCC1Client: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [pemesanan, setPemesanan] = useState<Pemesanan[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,8 +64,6 @@ const TabelCC1Client: React.FC = () => {
   );
 
   const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
-
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const openModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
