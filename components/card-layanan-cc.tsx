@@ -110,7 +110,7 @@ const CardLayananCC = () => {
             <div className="flex bg-neutral-100 rounded-md my-2 xl:flex xl:bg-neutral-100 xl:rounded-md xl:my-2">
               <IoEllipse color="orange" className="m-2.5 xl:m-2.5" />
               <h3 className="text-sm p-2 xl:text-sm xl:p-2">
-                Permohonan Tertulis <br /> <span className="text-xs xl:text-xs"> Format Permohonan bisa di <a href="https://igaegengprn3scvr.public.blob.vercel-storage.com/Command-Center-FSAoz5bPWTY8OTGADm2ncXBQqdRIXJ.pdf" className="text-orange-400 xl:text-orange-400">unduh disini</a> </span>
+                Permohonan Tertulis <br /> <span className="text-xs xl:text-xs"> Format Permohonan bisa di <a href="https://igaegengprn3scvr.public.blob.vercel-storage.com/tamplate%20surat%20peminjaman-sVswsZNCJuAYtMhNLppCBD4QO74WFW.pdf" className="text-orange-400 xl:text-orange-400">unduh disini</a> </span>
               </h3>
             </div>
           </div>
