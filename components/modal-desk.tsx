@@ -8,6 +8,10 @@ interface ModalProps {
 }
 
 const ModalDesk: React.FC<ModalProps> = ({ onClose, event }) => {
+  const formatUTCDate = (date: string) => {
+    return new Date(date).toLocaleString('id-ID', { timeZone: 'UTC' });
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="fixed inset-0 bg-black opacity-50"></div>
@@ -27,8 +31,8 @@ const ModalDesk: React.FC<ModalProps> = ({ onClose, event }) => {
           {/* <p className="flex items-center"><strong className="w-24">Surat:</strong> 
             <a href={event.extendedProps.surat} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">Lihat Surat</a>
           </p> */}
-          <p className="flex items-center"><strong className="w-24">Start</strong> : {formatDateToID(event.start)}</p>
-          <p className="flex items-center"><strong className="w-24">End</strong> : {formatDateToID(event.end)}</p>
+          <p className="flex items-center"><strong className="w-24">Start</strong> : {formatUTCDate(event.start)}</p>
+          <p className="flex items-center"><strong className="w-24">End</strong> : {formatUTCDate(event.end)}</p>
           <p className="flex items-center"><strong className="w-24">Status</strong> : {event.extendedProps.status}</p>
         </div>
         <button
