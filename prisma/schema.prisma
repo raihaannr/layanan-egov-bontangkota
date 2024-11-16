@@ -40,3 +40,12 @@ model Pemesanan {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
+
+model Prediksi {
+  id        String   @id @default(cuid())
+  thnsatu   String
+  thndua    String
+  thntiga   String
+  thnempat  String
+  tahunlima String
+}
